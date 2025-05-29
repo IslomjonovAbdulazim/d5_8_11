@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PinPage extends StatefulWidget {
   const PinPage({super.key});
@@ -8,7 +9,22 @@ class PinPage extends StatefulWidget {
 }
 
 class _PinPageState extends State<PinPage> {
+  var password = "";
+  bool isSuccess = false;
+  final controller = TextEditingController();
+  final focus = FocusNode();
 
+  @override
+  void initState() {
+    load();
+    super.initState();
+  }
+
+  void load() async {
+    final db = await SharedPreferences.getInstance();
+    password = db.getString("password") ?? "";
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
